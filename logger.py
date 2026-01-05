@@ -4,16 +4,16 @@ from logging.handlers import RotatingFileHandler
 from pathlib import Path
 from config import LOGGING_CONFIG
 
-_logger = None
+_LOGGER = None
 
 def setup_logger():
     ''' Sets up logger'''
-    global _logger
+    global _LOGGER
     logger = logging.getLogger("pipeline") # Pipeline name
 
     if  logger.hasHandlers():
-        _logger = logger
-        return _logger
+        _LOGGER = logger
+        return _LOGGER
 
     # Create folder for log files if not exists
     script_directory = Path(__file__).resolve().parent
@@ -32,10 +32,10 @@ def setup_logger():
     formatter = logging.Formatter(LOGGING_CONFIG['format'])
     handler.setFormatter(formatter)
     logger.addHandler(handler)
-    _logger = logger
+    _LOGGER = logger
 
 def get_logger():
     ''' Returns existing logger '''
-    if _logger is None:
+    if _LOGGER is None:
         setup_logger()
-    return _logger
+    return _LOGGER
