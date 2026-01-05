@@ -9,7 +9,7 @@ _LOGGER = None
 def setup_logger():
     ''' Sets up logger'''
     global _LOGGER
-    logger = logging.getLogger("pipeline") # Pipeline name
+    logger = logging.getLogger("nyc-airbnb-data-pipeline") # Pipeline name
 
     if  logger.hasHandlers():
         _LOGGER = logger

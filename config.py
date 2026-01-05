@@ -3,7 +3,19 @@
 PIPELINE_CONFIG = {
     "source": {
         "path": "data/NYC-Airbnb-2023.csv",
-        "source_name": "airbnb_nyc_2023"
+        "source_name": "airbnb_nyc_2023",
+        "required_columns": {
+            "id" : "int",
+            "name": "string",
+            "host_id": "int",
+            "host_name": "string",
+            "neighbourhood_group": "string",
+            "neighbourhood": "string",
+            "room_type": "string",
+            "price": "int",
+            "minimum_nights": "int",
+            "availability_365": "int"
+        }
     },
     "ingestion": {
         "max_retries": 3,
