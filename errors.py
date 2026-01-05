@@ -24,3 +24,9 @@ class DataTypeValidationError(ValidationError):
 
 class BusinessRuleValidationError(ValidationError):
     ''' Errors in business rules'''
+
+class TransformationErrors(Exception):
+    ''' Base class for transformation Errors'''
+
+class DataTypeTransformationError(TransformationErrors):
+    ''' Data type transformation error'''

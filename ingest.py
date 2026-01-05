@@ -11,7 +11,7 @@ def ingest_csv(config:dict) -> pd.DataFrame:
     csv_file = config['source']['path']
 
     try:
-        df = pd.read_csv(csv_file, encoding='utf-8')
+        df = pd.read_csv(csv_file, encoding='utf-8', low_memory=False)
     except FileNotFoundError as err:
         logger.error("Source data file %s not found", csv_file, exc_info=True)
         raise SourceNotFoundError("Source data file not found") from err

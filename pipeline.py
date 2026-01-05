@@ -1,3 +1,4 @@
+from transform import transform
 from errors import BusinessRuleValidationError, DataTypeValidationError, SchemaValidationError
 from ingest import ingest_csv
 from logger import get_logger
@@ -9,7 +10,6 @@ def run_pipeline(config:dict):
     logger.info("Pipeline started")
 
     data = ingest_csv(config)
-    logger.debug(data.dtypes)
 
     # Data validation
     logger.info('Validation started')
@@ -25,5 +25,11 @@ def run_pipeline(config:dict):
         validated_data = data
     else:
         logger.info('Validation successed')
+
+    logger.info('Transformation started')
+    logger.debug('Rows before transfromation: %s', validated_data.shape[0])
+    transformed_data = transform(validated_data, config)
+    logger.info('Transfromation successes.')
+    logger.debug('Rows after transfromation: %s', transformed_data.shape[0])
 
     logger.info("Pipeline successed")

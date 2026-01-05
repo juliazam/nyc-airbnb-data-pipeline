@@ -27,7 +27,7 @@ PIPELINE_CONFIG = {
 }
 
 LOGGING_CONFIG = {
-    "level": "INFO",
+    "level": "DEBUG",
     "log_file": "logs/pipeline.log",
     "format": "%(asctime)s | %(levelname)s | %(name)s | %(message)s",
     "max_bytes": 5_000_000,
