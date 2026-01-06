@@ -9,9 +9,9 @@ PIPELINE_CONFIG = {
             "name": "string",
             "host_id": "int",
             "host_name": "string",
-            "neighbourhood_group": "string",
+            "neighbourhood_group": "category",
             "neighbourhood": "string",
-            "room_type": "string",
+            "room_type": "category",
             "price": "int",
             "minimum_nights": "int",
             "availability_365": "int"

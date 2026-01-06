@@ -17,9 +17,6 @@ config = {
 
 def test_transform_basic():
     ''' Check transform function '''
-    import pandas as pd
-    from transform import transform
-
     data = {
         "id": [1, 2, 3, 4],
         "name": ['A', None, 'C', 'D'],
@@ -58,8 +55,46 @@ def test_transform_basic():
             assert transformed[col].dtype.name.startswith('int')
         elif data_type == 'string':
             assert transformed[col].dtype.name in ('string', 'object')
+        elif data_type == 'category':
+            assert transformed[col].dtype.name in ('category', 'object')
         else:
             raise ValueError(f"Unexpected type {data_type} in config")
+
+def test_transform_date():
+    ''' Checks date transformed correctly '''
+    data = {
+        "id": [1, 2, 3, 4],
+        "name": ['A', None, 'C', 'D'],
+        "host_id": [10, 20, 30, 40],
+        "host_name": ['X', None, 'Y', 'Z'],
+        "price": [10, 15, 20, 15],
+        "availability_365": [100, 200, 150, 50],
+        "last_review": ["21-06-22", None, "14-10-2019", "27-01-2023"]
+    }
+    df = pd.DataFrame(data)
+
+    transformed = transform(df, config)
+
+    assert transformed['last_review'].dtype.name.startswith('datetime')
+
+def test_transform_category():
+    ''' Checks date transformed correctly '''
+    data = {
+        "id": [1, 2, 3, 4],
+        "name": ['A', None, 'C', 'D'],
+        "host_id": [10, 20, 30, 40],
+        "host_name": ['X', None, 'Y', 'Z'],
+        "price": [10, 15, 20, 15],
+        "availability_365": [100, 200, 150, 50],
+        "room_type": ["Entire home/apt", "Hotel room", "Shared room", "Private room"],
+        "neighbourhood_group": ["Queens", "Queens", "Brooklyn", "Manhattan"],
+    }
+    df = pd.DataFrame(data)
+
+    transformed = transform(df, config)
+
+    assert transformed['room_type'].dtype.name == 'category'
+    assert transformed['neighbourhood_group'].dtype.name == 'category'
 
 def test_transform_duplicates_and_types():
     ''' Check if duplicates removed '''

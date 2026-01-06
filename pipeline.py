@@ -31,5 +31,7 @@ def run_pipeline(config:dict):
     transformed_data = transform(validated_data, config)
     logger.info('Transfromation successes.')
     logger.debug('Rows after transfromation: %s', transformed_data.shape[0])
+    logger.debug('Dataframe shape: %s', transformed_data.shape)
+    logger.debug('Data types: %s', transformed_data.dtypes)
 
     logger.info("Pipeline successed")

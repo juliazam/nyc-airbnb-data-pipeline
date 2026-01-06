@@ -25,13 +25,21 @@ def setup_logger():
     logging_level = getattr(logging, LOGGING_CONFIG['level'].upper(), logging.INFO)
     logger.setLevel(logging_level)
 
-    handler = RotatingFileHandler(log_path,
+    # Rotating file handler
+    file_handler = RotatingFileHandler(log_path,
                                     maxBytes=LOGGING_CONFIG['max_bytes'],
                                     backupCount=LOGGING_CONFIG['backup_count'],
                                     encoding="utf-8")
     formatter = logging.Formatter(LOGGING_CONFIG['format'])
-    handler.setFormatter(formatter)
-    logger.addHandler(handler)
+    file_handler.setFormatter(formatter)
+    logger.addHandler(file_handler)
+
+    # Console handler
+    console_handler = logging.StreamHandler()
+    console_handler.setLevel(logging.DEBUG)
+    console_handler.setFormatter(formatter)
+    logger.addHandler(console_handler)
+
     _LOGGER = logger
 
 def get_logger():
