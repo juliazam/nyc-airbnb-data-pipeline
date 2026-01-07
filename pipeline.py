@@ -1,3 +1,4 @@
+from aggregate import aggregate
 from transform import transform
 from errors import BusinessRuleValidationError, DataTypeValidationError, SchemaValidationError
 from ingest import ingest_csv
@@ -29,9 +30,14 @@ def run_pipeline(config:dict):
     logger.info('Transformation started')
     logger.debug('Rows before transfromation: %s', validated_data.shape[0])
     transformed_data = transform(validated_data, config)
-    logger.info('Transfromation successes.')
+    logger.info('Transfromation successed.')
     logger.debug('Rows after transfromation: %s', transformed_data.shape[0])
     logger.debug('Dataframe shape: %s', transformed_data.shape)
     logger.debug('Data types: %s', transformed_data.dtypes)
+
+    logger.info('Aggregation started')
+    aggregated_data = aggregate(transformed_data)
+    logger.info('Aggregation successed')
+    logger.debug('New dataframe with aggregated data shape: %s', aggregated_data.shape)
 
     logger.info("Pipeline successed")
