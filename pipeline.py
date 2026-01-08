@@ -4,6 +4,7 @@ from errors import BusinessRuleValidationError, DataTypeValidationError, SchemaV
 from ingest import ingest_csv
 from logger import get_logger
 from validate import validate
+from writer import write_output
 
 def run_pipeline(config:dict):
     ''' Data pipeline'''
@@ -39,5 +40,9 @@ def run_pipeline(config:dict):
     aggregated_data = aggregate(transformed_data)
     logger.info('Aggregation successed')
     logger.debug('New dataframe with aggregated data shape: %s', aggregated_data.shape)
+
+    logger.info("Starting output")
+    write_output(aggregated_data, config)
+    logger.info('Output successed')
 
     logger.info("Pipeline successed")
