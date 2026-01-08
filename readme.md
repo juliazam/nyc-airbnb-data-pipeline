@@ -12,31 +12,22 @@ Source data includes information about:
 - neighbourhoods
 - prices and availability
 
-The dataset contains ~43,000 rows.
+The dataset contains ~43,000 rows and fits into memory.
 
 ## Project structure
 
-.
-├── ingest.py        # CSV ingestion layer
-├── validate.py      # Schema and data validation
-├── transform.py     # Data cleaning and transformation
-├── aggregate.py     # Aggregation logic
-├── writer.py        # Output writing layer
-├── errors.py        # Custom exceptions
-├── logger.py        # Logging configuration
-├── config.py        # Pipeline configuration
-├── pipeline.py      # Pipeline
-├── main.py          # Pipeline start point
-├── tests/           # Unit tests
-│   ├── test_ingest.py
-│   ├── test_aggregate.py
-│   └── test_validate.py
-│   └── test_transform.py
-│   └── test_writer.py
-├── data/
-│   ├── NYC-Airbnb-2023.csv
-│   └── output/
-└── README.md
+- `ingest.py` — CSV ingestion layer  
+- `validate.py` — Schema and data validation  
+- `transform.py` — Data cleaning and transformation  
+- `aggregate.py` — Aggregation logic  
+- `writer.py` — Output writing layer  
+- `errors.py` — Custom exceptions  
+- `logger.py` — Logging configuration  
+- `config.py` — Pipeline configuration  
+- `pipeline.py` — Pipeline orchestrator  
+- `main.py` — Pipeline entry point  
+- `tests/` — Unit tests  
+- `data/` — Source and output files
 
 ## Pipeline overview
 
@@ -100,32 +91,50 @@ Unit tests cover:
 
 Tests are written using pytest.
 
+To run tests:
+```bash
+pytest
+```
+
 ## How to run
 
 1. Install dependencies:
 ```bash
 pip install -r requirements.txt
+```
 
 2. Run the pipeline:
+```
 python main.py
+```
+
+The pipeline will:
+
+ - read data/NYC-Airbnb-2023.csv
+ - validate and transform data
+ - compute aggregate metrics
+ - write output JSON and CSV into data/output/
 
 ## Notes
 
 - The pipeline is designed for datasets that fit into memory.
 - For larger-than-memory datasets, chunk-based or database-backed approaches would be required.
 
+## Data quality
+
+The dataset may contain missing or inconsistent values.
+The pipeline validates and cleans these issues before further processing.
+
 ## Purpose
 
 This project demonstrates:
-- basic data pipeline design
-- pandas-based aggregation
-- clean code structure
-- testing and logging practices
+- batch data pipeline design
+- pandas-based data transformation and aggregation
+- configuration-driven processing
+- testing, logging, and error handling
 
-## Tests
+## Future improvements
 
-Tests are written using pytest.
-
-To run tests:
-```bash
-pytest
+- processing large datasets in chunks
+- database integration
+- orchestration via Airflow
