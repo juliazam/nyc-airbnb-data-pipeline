@@ -37,7 +37,7 @@ def transform(df: pd.DataFrame, config: dict) -> pd.DataFrame:
 
     # --- Step 7: Convert data types that are not in config
     if 'last_review' in df.columns:
-        df['last_review'] = pd.to_datetime(df['last_review'], dayfirst=True, errors='coerce')
+        df['last_review'] = pd.to_datetime(df['last_review'], format='%d-%m-%Y', errors='coerce')
 
     if 'latitude' in df.columns:
         df['latitude'] = df['latitude'].astype('float')

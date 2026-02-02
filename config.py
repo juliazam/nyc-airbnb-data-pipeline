@@ -22,7 +22,8 @@ PIPELINE_CONFIG = {
         "retry_delay": 1.0,
     },
     "output": {
-        "path": "data/output/result.json"
+        "path": "data/output/result.json",
+        'table_name': 'listings'
     }
 }
 

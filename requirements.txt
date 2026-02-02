@@ -1,2 +1,4 @@
-pandas>=1.5
-pytest>=7.0
+pandas==3.0.0
+pytest==9.0.1
+python-dotenv==1.2.1
+SQLAlchemy==2.0.46

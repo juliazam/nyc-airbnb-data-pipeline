@@ -1,4 +1,6 @@
+''' Data pipeline orchestration module'''
 from aggregate import aggregate
+from database import save_to_db
 from transform import transform
 from errors import BusinessRuleValidationError, DataTypeValidationError, SchemaValidationError
 from ingest import ingest_csv
@@ -42,6 +44,7 @@ def run_pipeline(config:dict):
     logger.debug('New dataframe with aggregated data shape: %s', aggregated_data.shape)
 
     logger.info("Starting output")
+    save_to_db(aggregated_data, config['output']['table_name'])
     write_output(aggregated_data, config)
     logger.info('Output successed')
 

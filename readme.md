@@ -28,6 +28,7 @@ The dataset contains ~43,000 rows and fits into memory.
 - `main.py` — Pipeline entry point  
 - `tests/` — Unit tests  
 - `data/` — Source and output files
+- `check_db.py` - Utility script to verify data integrity and types in the SQLite database.
 
 ## Pipeline overview
 
@@ -62,6 +63,21 @@ The pipeline consists of the following steps:
      - JSON (newline-delimited)
      - CSV
 
+## Database Integration
+
+The pipeline includes a SQL persistence layer to demonstrate production-ready data storage:
+- **Engine**: SQLAlchemy for robust database communication.
+- **Database**: SQLite (file-based), which allows for easy result inspection without complex setup.
+- **Functionality**: Automatically creates/updates tables and loads cleaned, aggregated data.
+
+### Verification
+To ensure data was saved correctly and types (especially dates) were preserved, run:
+```bash
+python check_db.py
+```
+
+This script reads data back from the database and prints its schema and row count.
+
 ## Configuration
 
 Pipeline behaviour is controlled via a configuration dictionary, including:
@@ -88,6 +104,7 @@ Unit tests cover:
 - transformation correctness
 - aggregation correctness
 - output file generation
+- saving to database
 
 Tests are written using pytest.
 
@@ -103,9 +120,17 @@ pytest
 pip install -r requirements.txt
 ```
 
-2. Run the pipeline:
+2. Configure environment:
+Copy `.env.example` to `.env` and configure your DATABASE_URL
+
+3. Run the pipeline:
 ```
 python main.py
+```
+
+4. Verify the database results
+```
+python check_db.py
 ```
 
 The pipeline will:
@@ -113,6 +138,7 @@ The pipeline will:
  - read data/NYC-Airbnb-2023.csv
  - validate and transform data
  - compute aggregate metrics
+ - save data into database
  - write output JSON and CSV into data/output/
 
 ## Notes
@@ -136,5 +162,4 @@ This project demonstrates:
 ## Future improvements
 
 - processing large datasets in chunks
-- database integration
 - orchestration via Airflow
